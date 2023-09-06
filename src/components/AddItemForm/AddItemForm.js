@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 function AddItemForm() {
   const [formData, setFormData] = useState({
     name: '',
-    description: '',
-    price: '',
   });
 
   const handleChange = (e) => {
