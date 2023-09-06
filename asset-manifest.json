@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/piql-frontend/static/css/main.e6c13ad2.css",
+    "main.js": "/piql-frontend/static/js/main.863d7500.js",
+    "static/js/787.d0035655.chunk.js": "/piql-frontend/static/js/787.d0035655.chunk.js",
+    "index.html": "/piql-frontend/index.html",
+    "main.e6c13ad2.css.map": "/piql-frontend/static/css/main.e6c13ad2.css.map",
+    "main.863d7500.js.map": "/piql-frontend/static/js/main.863d7500.js.map",
+    "787.d0035655.chunk.js.map": "/piql-frontend/static/js/787.d0035655.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.863d7500.js"
+  ]
+}
