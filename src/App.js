@@ -1,3 +1,4 @@
+import './styles/tailwind.css'; // Import your Tailwind CSS file
 import React, { useEffect, useState } from 'react';
 import AddItemForm from './components/AddItemForm';
 
@@ -17,16 +18,18 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className="container mx-auto p-4">
       <AddItemForm />
-      <h1>Items</h1>
-      <ul>
+  
+      <h1 className="text-2xl font-bold mb-4">Items</h1>
+  
+      <ul className="list-disc pl-4">
         {items.map((item) => (
-          <li key={item.id}>{item.name}</li>
+          <li key={item.id} className="text-lg">{item.name}</li>
         ))}
       </ul>
     </div>
-  );
+  );  
 }
 
 export default App;
