@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
 function Register() {
-  // State variables to manage user input
+  // State variables to manage user input and success message
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+  const [successMessage, setSuccessMessage] = useState('');
 
   // Event handler to update form data as user types
   const handleChange = (e) => {
@@ -29,20 +30,26 @@ function Register() {
       });
 
       if (response.ok) {
-        console.log('User registered successfully');
+        // Registration successful, display success message
+        setSuccessMessage('User registered successfully');
+        // Clear the form
+        setFormData({
+          email: '',
+          password: '',
+        });
       } else {
         // Handle error here, display error message, etc.
-        console.error('Error regisdtering user');
+        console.error('Error registering user');
       }
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
-
   return (
     <div className="register-form">
-      <h2>Register</h2>
+      <h2>Join Piql today</h2>
+      {successMessage && <p>{successMessage}</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email</label>
