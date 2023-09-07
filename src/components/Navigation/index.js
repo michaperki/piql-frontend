@@ -1,2 +1,2 @@
-import Navigate from "./Navigate";
-export default Navigate;
+import Navigation from "./Navigation";
+export default Navigation;
