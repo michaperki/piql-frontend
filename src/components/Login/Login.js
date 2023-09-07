@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Login({ navigate }) {
+function Login() {
+    const navigate = useNavigate();
+    
     // State variables to manage user input and error message
     const [formData, setFormData] = useState({
         email: '',

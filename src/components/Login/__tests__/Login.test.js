@@ -1,12 +1,17 @@
 import React from 'react';
-import { render, fireEvent, act, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import Login from '../Login';
-import '@testing-library/jest-dom'
-import "../../../setupTests"
+import '@testing-library/jest-dom';
+import '../../../setupTests';
+import { MemoryRouter } from 'react-router-dom'; // Import MemoryRouter
 
 describe('Login Component', () => {
     it('should render the login form', () => {
-        const { getByText, getByLabelText } = render(<Login />);
+        const { getByText, getByLabelText } = render(
+            <MemoryRouter>
+                <Login />
+            </MemoryRouter>
+        );
 
         // Use setTimeout to wait for elements to appear
         expect(getByText('Login to Piql')).toBeInTheDocument();
@@ -15,7 +20,11 @@ describe('Login Component', () => {
     });
 
     it('should update form data when input values change', () => {
-        const { getByLabelText } = render(<Login />);
+        const { getByLabelText } = render(
+            <MemoryRouter>
+                <Login />
+            </MemoryRouter>
+        );
         const emailInput = getByLabelText('Email');
         const passwordInput = getByLabelText('Password');
 
@@ -29,7 +38,11 @@ describe('Login Component', () => {
     });
 
     it('should submit the form and handle successful login', async () => {
-        const { getByLabelText, getByText } = render(<Login />);
+        const { getByLabelText, getByText } = render(
+            <MemoryRouter>
+                <Login />
+            </MemoryRouter>
+        );
         const emailInput = getByLabelText('Email');
         const passwordInput = getByLabelText('Password');
         const loginButton = getByText('Login');
@@ -61,7 +74,11 @@ describe('Login Component', () => {
             })
         );
 
-        const { getByLabelText, getByText } = render(<Login />);
+        const { getByLabelText, getByText } = render(
+            <MemoryRouter>
+                <Login />
+            </MemoryRouter>
+        );
         const emailInput = getByLabelText('Email');
         const passwordInput = getByLabelText('Password');
         const loginButton = getByText('Login');
