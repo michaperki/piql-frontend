@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard';
 function App() {
   return (
     <Router basename="/piql-frontend">
+      <h1>piql</h1>
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
