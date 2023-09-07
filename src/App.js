@@ -1,18 +1,21 @@
-import './styles/tailwind.css'; // Import your Tailwind CSS file
-import React, { useEffect, useState } from 'react';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import './styles/tailwind.css';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
-
+import Dashboard from './pages/Dashboard';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
+  const navigate = useNavigate();
+  
   return (
-    <Router>
-      <h1>piql</h1>
+    <>
+      <h2>piql</h2>
       <Routes>
         <Route path="/" element={<Home />} />
-
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
-    </Router>
+    </>
   );
 }
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Court from '../Court';
+import Home from '../Home';
 import "../../../setupTests"
 
-describe('Court Component', () => {
+describe('Home Component', () => {
     it('should render the dashboard', () => {
-        render(<Court />);
+        render(<Home />);
         // Add any assertions or expectations here if needed
     });
 });

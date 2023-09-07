@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useHistory
 
-
-function Login() {
-    const navigate = useNavigate()
-
+function Login({ navigate }) {
     // State variables to manage user input and error message
     const [formData, setFormData] = useState({
         email: '',

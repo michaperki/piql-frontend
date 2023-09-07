@@ -3,3 +3,13 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
+
+beforeEach(() => {
+    // Mock the fetch function to simulate API requests
+    global.fetch = jest.fn(() =>
+        Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve({ message: 'User registered successfully' }),
+        })
+    );
+});

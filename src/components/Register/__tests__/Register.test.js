@@ -2,14 +2,7 @@ import React from 'react';
 import { render, fireEvent, waitFor, getByLabelText, getByText } from '@testing-library/react';
 import Register from '../Register';
 import '@testing-library/jest-dom';
-
-// Mock the fetch function to simulate API requests
-global.fetch = jest.fn(() =>
-    Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve({ message: 'User registered successfully' }),
-    })
-);
+import "../../../setupTests"
 
 describe('Register Component', () => {
     it('should render the registration form', () => {
