@@ -1,78 +1,84 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useHistory
+
 
 function Login() {
-  // State variables to manage user input and error message
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-  const [message, setMessage] = useState('');
+    const navigate = useNavigate()
 
-  // Event handler to update form data as user types
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
+    // State variables to manage user input and error message
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
     });
-  };
+    const [message, setMessage] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    // Event handler to update form data as user types
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
 
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-      if (response.ok) {
-        // Login successful, you can perform actions here (e.g., redirect)
-        console.log("successful login")        
-      } else {
-        // Handle error here, display error message from the server response
-        const errorData = await response.json();
-        setMessage("Error: " + errorData.error || 'Error logging in');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
 
-  return (
-    <div className="login-form">
-      <h2>Login to Piql</h2>
-      {message && <p>{message}</p>}
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+            if (response.ok) {
+                // Login successful, you can perform actions here (e.g., redirect)
+                const data = await response.json();
+                const accessToken = data.access_token; // Assuming the token is in the response
+                navigate('/dashboard')                
+            } else {
+                // Handle error here, display error message from the server response
+                const errorData = await response.json();
+                setMessage("Error: " + errorData.error || 'Error logging in');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    return (
+        <div className="login-form">
+            <h2>Login to Piql</h2>
+            {message && <p>{message}</p>}
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <button type="submit">Login</button>
+            </form>
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
-    </div>
-  );
+    );
 }
 
 export default Login;
