@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor, getByLabelText, getByText } from '@testing-library/react';
 import Register from '../Register';
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom';
 
 // Mock the fetch function to simulate API requests
 global.fetch = jest.fn(() =>
@@ -54,7 +54,7 @@ describe('Register Component', () => {
             expect(fetch).toHaveBeenCalledTimes(1);
         });
 
-        // Add a small delay before checking the success message
+        // Add a delay before checking the success message
         setTimeout(() => {
             // Check if the success message is displayed using regex
             const successMessage = getByText(/User registered successfully/i);
@@ -62,6 +62,37 @@ describe('Register Component', () => {
         }, 1000); // Adjust the delay time as needed
     });
 
+    it('should handle registration with an existing email and display an error message', async () => {
+        // Mock the fetch function to simulate an error response
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                ok: false,
+                json: () => Promise.resolve({ error: 'Email already registered' }),
+            })
+        );
 
+        const { getByLabelText, getByText } = render(<Register />);
+        const emailInput = getByLabelText('Email');
+        const passwordInput = getByLabelText('Password');
+        const registerButton = getByText('Register');
+
+        // Simulate user input
+        fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+        fireEvent.change(passwordInput, { target: { value: 'testpassword' } });
+
+        // Simulate form submission
+        fireEvent.click(registerButton);
+
+        // Wait for the API request to resolve
+        await waitFor(() => {
+            expect(fetch).toHaveBeenCalledTimes(1);
+        });
+
+        // Add a delay before checking the error message
+        setTimeout(() => {
+            // Check if the error message is displayed using regex
+            const errorMessage = getByText(/Error: Email already registered/i);
+            expect(errorMessage).toBeInTheDocument();
+        }, 1000); // Adjust the delay time as needed
+    });
 });
-

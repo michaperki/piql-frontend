@@ -6,7 +6,7 @@ function Register() {
     email: '',
     password: '',
   });
-  const [successMessage, setSuccessMessage] = useState('');
+  const [message, setMessage] = useState('');
 
   // Event handler to update form data as user types
   const handleChange = (e) => {
@@ -19,7 +19,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
         method: 'POST',
@@ -28,18 +28,19 @@ function Register() {
         },
         body: JSON.stringify(formData),
       });
-
+  
       if (response.ok) {
         // Registration successful, display success message
-        setSuccessMessage('User registered successfully');
+        setMessage('User registered successfully');
         // Clear the form
         setFormData({
           email: '',
           password: '',
         });
       } else {
-        // Handle error here, display error message, etc.
-        console.error('Error registering user');
+        // Handle error here, display error message from the server response
+        const errorData = await response.json();
+        setMessage("Error: " + errorData.error || 'Error registering user');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -49,7 +50,7 @@ function Register() {
   return (
     <div className="register-form">
       <h2>Join Piql today</h2>
-      {successMessage && <p>{successMessage}</p>}
+      {message && <p>{message}</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email</label>
