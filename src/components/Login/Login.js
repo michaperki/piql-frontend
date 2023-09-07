@@ -37,6 +37,8 @@ function Login() {
                 // Login successful, you can perform actions here (e.g., redirect)
                 const data = await response.json();
                 const accessToken = data.access_token; // Assuming the token is in the response
+                // Store the access token in local storage for future use
+                localStorage.setItem('access_token', accessToken);
                 navigate('/dashboard')                
             } else {
                 // Handle error here, display error message from the server response
