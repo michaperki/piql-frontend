@@ -2,7 +2,7 @@ import React from 'react';
 import FriendList from '../../components/FriendList';
 import FriendRequestList from '../../components/FriendRequestList';
 
-const Settings = () => {
+const Social = () => {
   return (
     <div>
       <h1>Social</h1>
@@ -12,4 +12,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default Social;

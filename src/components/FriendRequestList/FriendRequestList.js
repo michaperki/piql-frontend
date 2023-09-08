@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import AddFriend from './AddFriend';
 
 function FriendRequestList() {
   const [friendRequests, setFriendRequests] = useState([]);
@@ -57,6 +58,7 @@ function FriendRequestList() {
           ))}
         </ul>
       )}
+      <AddFriend />
     </div>
   );
 }
