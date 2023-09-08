@@ -1,10 +1,10 @@
-import Court from "../../components/Court";
+import CreateGame from "../../components/CreateGame";
 // Template for Dashboard
 const Dashboard = () => {
     return (
         <div>
             Dashboard
-            <Court />
+            <CreateGame />
         </div>
     );
 }
