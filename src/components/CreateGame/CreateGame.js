@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import CourtSelector from './CourtSelector';
 import DurationSelector from './DurationSelector';
 import DateSelector from './DateSelector';
+import FriendSelector from './FriendSelector';
 
 function CreateGame() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedCourt, setSelectedCourt] = useState(null);
+  const [selectedFriends, setSelectedFriends] = useState([]); // Store selected friends as an array
   const accessToken = localStorage.getItem('access_token');
 
   const today = new Date();
@@ -17,7 +19,7 @@ function CreateGame() {
     startTime: '',
     duration: 30,
     courtId: 1,
-    players: [6],
+    players: [],
   });
 
   const handleCourtSelected = (court) => {
@@ -32,10 +34,10 @@ function CreateGame() {
         const startDateTime = new Date(formData.date);
         startDateTime.setHours(parseInt(hours));
         startDateTime.setMinutes(parseInt(minutes));
-  
+
         const endDateTime = new Date(startDateTime.getTime() + newDuration * 60000);
         const formattedEndTime = `${endDateTime.getHours()}:${endDateTime.getMinutes()}`;
-  
+
         setFormData({
           ...formData,
           duration: newDuration,
@@ -61,16 +63,29 @@ function CreateGame() {
     });
   };
 
+  const handleFriendsSelected = (selectedFriendIds) => {
+    setSelectedFriends(selectedFriendIds);
+
+    // Update players based on selectedFriends
+    setFormData({
+      ...formData,
+      players: selectedFriendIds,
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    console.log(formData);
-  
     // Check if both startTime and endTime are available
-    if (formData.startTime && formData.endTime) {
+    if (formData.startTime && formData.duration) {
+      // Parse the startTime and calculate endTime
+      const [hours, minutes] = formData.startTime.split(':');
+      const startDateTime = new Date(`${formData.date}T${formData.startTime}:00`);
+      const endDateTime = new Date(startDateTime.getTime() + formData.duration * 60000);
+  
       // Format the time values to 'HH:mm:ss'
-      const formattedStartTime = `${formData.startTime}:00`;
-      const formattedEndTime = `${formData.endTime}:00`;
+      const formattedStartTime = `${hours}:${minutes}:00`;
+      const formattedEndTime = `${endDateTime.getHours()}:${endDateTime.getMinutes()}:00`;
   
       const requestData = {
         date: formData.date,
@@ -82,8 +97,6 @@ function CreateGame() {
   
       try {
         setLoading(true);
-
-        console.log(requestData)
   
         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/games`, {
           method: 'POST',
@@ -125,6 +138,13 @@ function CreateGame() {
           }
         />
         <DurationSelector duration={formData.duration} onChange={handleDurationChange} />
+
+        <div className="mb-4">
+          <label htmlFor="friendSelect" className="block text-lg font-semibold mb-2">
+            Select Friends as Players:
+          </label>
+          <FriendSelector onFriendsSelected={handleFriendsSelected} />
+        </div>
 
         <div className="mb-4">
           <label htmlFor="courtSelect" className="block text-lg font-semibold mb-2">

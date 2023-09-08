@@ -31,18 +31,18 @@ const Navigation = () => {
         </li>
         <li>
           <Link
-            to="/settings"
-            className="block text-white hover:text-gray-400 py-2 px-2 lg:px-0"
-          >
-            Settings
-          </Link>
-        </li>
-        <li>
-          <Link
             to="/social"
             className="block text-white hover:text-gray-400 py-2 px-2 lg:px-0"
           >
             Social
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/settings"
+            className="block text-white hover:text-gray-400 py-2 px-2 lg:px-0"
+          >
+            Settings
           </Link>
         </li>
       </ul>

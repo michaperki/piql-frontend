@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Court from '../../Court';
+import Court from '../Court';
 
 function CourtSelector({ onCourtSelected }) {
   const [courts, setCourts] = useState([]);

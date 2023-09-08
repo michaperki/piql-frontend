@@ -5,7 +5,6 @@ import FriendRequestList from '../../components/FriendRequestList';
 const Social = () => {
   return (
     <div>
-      <h1>Social</h1>
       <FriendList />
       <FriendRequestList />
     </div>
