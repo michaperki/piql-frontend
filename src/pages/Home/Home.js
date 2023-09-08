@@ -24,7 +24,14 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center">
-      <h1 className="text-3xl font-extrabold mb-6">Welcome to Piql</h1>
+      <h1 className="text-3xl font-extrabold mb-6">Welcome to</h1>
+
+      <img
+        src={`${process.env.PUBLIC_URL}/logo.png`}
+        alt="Piql Logo"
+        className="mb-6"
+        style={{ width: '150px', height: 'auto' }}
+      />
       <button
         onClick={openLoginModal}
         className="px-4 py-2 bg-indigo-500 text-white rounded-md font-medium hover:bg-indigo-600 transition duration-200"
