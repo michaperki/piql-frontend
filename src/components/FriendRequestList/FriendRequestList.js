@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AddFriend from './AddFriend';
+import FriendRequest from './FriendRequest'; // Import the FriendRequest component
 
 function FriendRequestList() {
   const [friendRequests, setFriendRequests] = useState([]);
@@ -31,7 +32,31 @@ function FriendRequestList() {
         setError(error.message);
         setLoading(false);
       });
-  }, [accessToken]); // Include accessToken in the dependency array to re-fetch data when it changes
+  }, [accessToken]);
+
+  const handleAcceptRequest = (requestId) => {
+    // Send a request to the backend to accept the friend request
+    fetch(`${process.env.REACT_APP_API_URL}/api/friends/accept_request/${requestId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        // Remove the accepted friend request from the list
+        setFriendRequests((prevRequests) =>
+          prevRequests.filter((request) => request.id !== requestId)
+        );
+      })
+      .catch((error) => {
+        console.error('Error accepting friend request:', error);
+        // Handle the error as needed
+      });
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -49,12 +74,11 @@ function FriendRequestList() {
       ) : (
         <ul>
           {friendRequests.map((request) => (
-            <li key={request.id}>
-              <p>ID: {request.id}</p>
-              <p>Sender ID: {request.sender_id}</p>
-              <p>Status: {request.status}</p>
-              {/* Add additional friend request information here */}
-            </li>
+            <FriendRequest
+              key={request.id}
+              request={request}
+              onAccept={handleAcceptRequest}
+            />
           ))}
         </ul>
       )}
