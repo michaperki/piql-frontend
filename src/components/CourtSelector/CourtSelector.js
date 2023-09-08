@@ -26,8 +26,8 @@ function CourtSelector({ onCourtSelected }) {
 
   return (
     <div>
-      <label>Select a Court:</label>
-      <select onChange={handleCourtSelection} value={selectedCourt ? selectedCourt.id : ''}>
+      <label htmlFor="courtSelect">Select a Court:</label>
+      <select id="courtSelect" onChange={handleCourtSelection} value={selectedCourt ? selectedCourt.id : ''}>
         <option value="">Select a court</option>
         {courts.map((court) => (
           <option key={court.id} value={court.id}>
