@@ -12,7 +12,11 @@ const Header = () => {
   return (
     <header className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-white text-xl font-bold">Piql</Link>
+        <Link to="/">
+          <img
+            src={`${process.env.PUBLIC_URL}/logo_dark.png`}
+            alt="Piql Logo" className="h-10" />
+        </Link>
         <button
           className="lg:hidden text-white text-xl"
           onClick={toggleMobileMenu}
