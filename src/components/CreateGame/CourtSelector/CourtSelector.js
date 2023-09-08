@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Court from '../Court';
+import Court from '../../Court';
 
 function CourtSelector({ onCourtSelected }) {
   const [courts, setCourts] = useState([]);
@@ -22,6 +22,12 @@ function CourtSelector({ onCourtSelected }) {
       .catch((error) => console.error('Error fetching court data:', error));
   }, []);
 
+  const handleDetailsClick = (courtId) => {
+    // You can use the courtId to fetch additional details if needed
+    // For simplicity, let's just show an alert with the court's ID for now
+    alert(`Court Details Clicked for Court ID: ${courtId}`);
+  };
+
   const handleCourtSelection = (event) => {
     const selectedCourtId = parseInt(event.target.value);
     setSelectedCourtId(selectedCourtId);
@@ -43,9 +49,6 @@ function CourtSelector({ onCourtSelected }) {
 
   return (
     <div className="p-4">
-      <label htmlFor="courtSelect" className="block text-lg font-semibold mb-2">
-        Select a Court:
-      </label>
       <select
         id="courtSelect"
         onChange={handleCourtSelection}
@@ -64,8 +67,13 @@ function CourtSelector({ onCourtSelected }) {
       ) : (
         selectedCourt && (
           <div className="mt-4">
-            <h2 className="text-xl font-semibold">Selected Court</h2>
-            <Court courtData={selectedCourt} />
+            <h2 className="text-xl font-semibold">Selected Court: {selectedCourt.name}</h2>
+            <button
+              className="text-blue-500 hover:text-blue-700 cursor-pointer"
+              onClick={() => handleDetailsClick(selectedCourt.id)}
+            >
+              View Details
+            </button>
           </div>
         )
       )}

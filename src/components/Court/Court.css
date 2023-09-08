@@ -1,0 +1,6 @@
+/* In your CSS file or CSS module */
+.court-image {
+  width: 100%; /* Adjust to your desired width */
+  max-height: 200px; /* Adjust to your desired maximum height */
+  object-fit: cover; /* Adjust the object-fit property as needed */
+}

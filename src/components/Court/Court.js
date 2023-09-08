@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './Court.css'
 
 function Court({ courtData }) {  
   if (!courtData) {
@@ -14,8 +15,8 @@ function Court({ courtData }) {
       <img
         src={`${process.env.REACT_APP_API_URL}/images/${courtData.image_url}`}
         alt="Court"
-        className="mt-2 rounded-lg"
-      />
+        className="mt-2 rounded-lg w-40 h-40 object-cover"
+        />
     </div>
   );
 }

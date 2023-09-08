@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import CourtSelector from '../CourtSelector';
+import CourtSelector from './CourtSelector';
+import DurationSelector from './DurationSelector';
+import DateSelector from './DateSelector';
 
 function CreateGame() {
   const [loading, setLoading] = useState(false);
@@ -7,10 +9,13 @@ function CreateGame() {
   const [selectedCourt, setSelectedCourt] = useState(null);
   const accessToken = localStorage.getItem('access_token');
 
+  const today = new Date();
+  const todayISOString = today.toISOString().slice(0, 10);
+
   const [formData, setFormData] = useState({
-    date: '',
+    date: todayISOString,
     startTime: '',
-    endTime: '',
+    duration: 30,
     courtId: 1,
     players: [6],
   });
@@ -27,6 +32,29 @@ function CreateGame() {
     });
   };
 
+  const handleDurationChange = (increment) => {
+    const newDuration = formData.duration + (increment ? 30 : -30);
+    if (newDuration >= 30) {
+      setFormData({
+        ...formData,
+        duration: newDuration,
+      });
+    }
+  };
+
+  const handleDateChange = (increment) => {
+    const newDate = new Date(formData.date);
+    if (increment) {
+      newDate.setDate(newDate.getDate() + 1);
+    } else {
+      newDate.setDate(newDate.getDate() - 1);
+    }
+    const newDateISOString = newDate.toISOString().slice(0, 10);
+    setFormData({
+      ...formData,
+      date: newDateISOString,
+    });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -71,48 +99,9 @@ function CreateGame() {
   return (
     <div className="p-4">
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="date" className="block text-lg font-semibold mb-2">
-            Date:
-          </label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            value={formData.date}
-            onChange={handleInputChange}
-            required
-            className="w-full p-2 border rounded-md"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="startTime" className="block text-lg font-semibold mb-2">
-            Start Time:
-          </label>
-          <input
-            type="time"
-            id="startTime"
-            name="startTime"
-            value={formData.startTime}
-            onChange={handleInputChange}
-            required
-            className="w-full p-2 border rounded-md"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="endTime" className="block text-lg font-semibold mb-2">
-            End Time:
-          </label>
-          <input
-            type="time"
-            id="endTime"
-            name="endTime"
-            value={formData.endTime}
-            onChange={handleInputChange}
-            required
-            className="w-full p-2 border rounded-md"
-          />
-        </div>
+        <DateSelector date={formData.date} onChange={handleDateChange} />
+        <DurationSelector duration={formData.duration} onChange={handleDurationChange} />
+
         <div className="mb-4">
           <label htmlFor="courtSelect" className="block text-lg font-semibold mb-2">
             Select a Court:
