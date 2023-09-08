@@ -3,19 +3,39 @@ import { Link } from 'react-router-dom';
 
 const Navigation = () => {
   return (
-    <nav>
-      <ul>
+    <nav className="lg:flex lg:space-x-4">
+      <ul className="lg:flex lg:space-x-4">
         <li>
-          <Link to="/dashboard">Dashboard</Link>
+          <Link
+            to="/dashboard"
+            className="block text-white hover:text-gray-400 py-2 px-2 lg:px-0"
+          >
+            Dashboard
+          </Link>
         </li>
         <li>
-          <Link to="/calendar">Calendar</Link>
+          <Link
+            to="/calendar"
+            className="block text-white hover:text-gray-400 py-2 px-2 lg:px-0"
+          >
+            Calendar
+          </Link>
         </li>
         <li>
-          <Link to="/games">Games</Link>
+          <Link
+            to="/games"
+            className="block text-white hover:text-gray-400 py-2 px-2 lg:px-0"
+          >
+            Games
+          </Link>
         </li>
         <li>
-          <Link to="/settings">Settings</Link>
+          <Link
+            to="/settings"
+            className="block text-white hover:text-gray-400 py-2 px-2 lg:px-0"
+          >
+            Settings
+          </Link>
         </li>
       </ul>
     </nav>

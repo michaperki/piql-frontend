@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import { useNavigate } from 'react-router-dom';
-import Navigation from './components/Navigation';
+import Header from './components/Header';
 import Games from './pages/Games';
 import Calendar from './pages/Calendar'
 import Settings from './pages/Settings'
@@ -15,8 +15,7 @@ function App() {
 
   return (
     <>
-      <h2>piql</h2>
-      <Navigation/>
+      <Header/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
