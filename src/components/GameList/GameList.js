@@ -7,7 +7,12 @@ function GameList() {
   const accessToken = localStorage.getItem('access_token');
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/api/games`)
+    // Create headers object with the Authorization header
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+
+    fetch(`${process.env.REACT_APP_API_URL}/api/games`, { headers })
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -15,30 +20,29 @@ function GameList() {
         return response.json();
       })
       .then((data) => {
-        console.log('Data received from API:', data); // Add this line
+        console.log('Data received from API:', data);
         setGames(data);
-        setLoading(false); // Turn off loading
+        setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching games data:', error);
         setError(error.message);
-        setLoading(false); // Turn off loading
+        setLoading(false);
       });
-  }, []);
-  
+  }, [accessToken]); // Include accessToken in the dependency array to re-fetch data when it changes
 
-  if (!games) {
+  if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
   }
 
   return (
     <div>
       <h2>Game List</h2>
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>Error: {error}</p>
-      ) : games.length === 0 ? (
+      {games.length === 0 ? (
         <p>No games available</p>
       ) : (
         <ul>
@@ -48,7 +52,9 @@ function GameList() {
               <p>Start Time: {game.start_time}</p>
               <p>End Time: {game.end_time}</p>
               <p>Court ID: {game.court_id}</p>
-              <p>Players: {game.player_ids.length > 1 ? game.player_ids.join(', ') : game.player_ids[0]}</p>
+              <p>
+                Players: {game.player_ids.length > 1 ? game.player_ids.join(', ') : game.player_ids[0]}
+              </p>
             </li>
           ))}
         </ul>
