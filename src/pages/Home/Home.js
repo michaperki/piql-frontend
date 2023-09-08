@@ -30,7 +30,7 @@ const Home = () => {
         src={`${process.env.PUBLIC_URL}/logo.png`}
         alt="Piql Logo"
         className="mb-6"
-        style={{ width: '150px', height: 'auto' }}
+        style={{ width: '200px', height: 'auto' }}
       />
       <button
         onClick={openLoginModal}
