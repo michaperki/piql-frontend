@@ -1,12 +1,16 @@
 import React from 'react';
 
-function DateSelector({ date, startTime, onChange }) {
-  const handleIncrement = () => {
-    onChange(true); // Increment date
+function DateSelector({ date, startTime, onDateChange, onStartTimeChange }) {
+  const handleDateIncrement = () => {
+    onDateChange(true); // Increment date
   };
 
-  const handleDecrement = () => {
-    onChange(false); // Decrement date
+  const handleDateDecrement = () => {
+    onDateChange(false); // Decrement date
+  };
+
+  const handleStartTimeChange = (e) => {
+    onStartTimeChange(e.target.value); // Update start time
   };
 
   // Extract month and day from the date string (YYYY-MM-DD)
@@ -23,7 +27,7 @@ function DateSelector({ date, startTime, onChange }) {
           <button
             type="button"
             className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 focus:outline-none"
-            onClick={handleDecrement}
+            onClick={handleDateDecrement}
           >
             -
           </button>
@@ -38,7 +42,7 @@ function DateSelector({ date, startTime, onChange }) {
           <button
             type="button"
             className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 focus:outline-none"
-            onClick={handleIncrement}
+            onClick={handleDateIncrement}
           >
             +
           </button>
@@ -53,7 +57,7 @@ function DateSelector({ date, startTime, onChange }) {
           id="startTime"
           name="startTime"
           value={startTime}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={handleStartTimeChange}
           required
           className="w-full p-2 border rounded-md"
         />

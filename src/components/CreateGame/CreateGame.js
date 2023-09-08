@@ -24,21 +24,26 @@ function CreateGame() {
     setSelectedCourt(court);
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
   const handleDurationChange = (increment) => {
     const newDuration = formData.duration + (increment ? 30 : -30);
     if (newDuration >= 30) {
-      setFormData({
-        ...formData,
-        duration: newDuration,
-      });
+      if (formData.startTime) {
+        const [hours, minutes] = formData.startTime.split(':');
+        const startDateTime = new Date(formData.date);
+        startDateTime.setHours(parseInt(hours));
+        startDateTime.setMinutes(parseInt(minutes));
+  
+        const endDateTime = new Date(startDateTime.getTime() + newDuration * 60000);
+        const formattedEndTime = `${endDateTime.getHours()}:${endDateTime.getMinutes()}`;
+  
+        setFormData({
+          ...formData,
+          duration: newDuration,
+          endTime: formattedEndTime, // Update endTime here
+        });
+      } else {
+        // Handle case where startTime is not set
+      }
     }
   };
 
@@ -55,51 +60,70 @@ function CreateGame() {
       date: newDateISOString,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    console.log(formData);
+  
+    // Check if both startTime and endTime are available
+    if (formData.startTime && formData.endTime) {
+      // Format the time values to 'HH:mm:ss'
+      const formattedStartTime = `${formData.startTime}:00`;
+      const formattedEndTime = `${formData.endTime}:00`;
+  
+      const requestData = {
+        date: formData.date,
+        start_time: formattedStartTime,
+        end_time: formattedEndTime,
+        court_id: formData.courtId,
+        players: formData.players,
+      };
+  
+      try {
+        setLoading(true);
 
-    // Format the time values to 'HH:mm:ss'
-    const formattedStartTime = `${formData.startTime}:00`;
-    const formattedEndTime = `${formData.endTime}:00`;
-
-    const requestData = {
-      date: formData.date,
-      start_time: formattedStartTime,
-      end_time: formattedEndTime,
-      court_id: formData.courtId,
-      players: formData.players,
-    };
-
-    try {
-      setLoading(true);
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/games`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify(requestData),
-      });
-
-      if (response.ok) {
-        // Game created successfully
-        // You can handle the success case here (e.g., show a success message)
-        console.log('Game created successfully');
-      } else {
-        // Handle error cases
-        setError('Failed to create the game');
+        console.log(requestData)
+  
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/games`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify(requestData),
+        });
+  
+        if (response.ok) {
+          // Game created successfully
+          // You can handle the success case here (e.g., show a success message)
+          console.log('Game created successfully');
+        } else {
+          // Handle error cases
+          setError('Failed to create the game');
+        }
+      } catch (error) {
+        setError('An error occurred while creating the game');
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      setError('An error occurred while creating the game');
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
     <div className="p-4">
       <form onSubmit={handleSubmit}>
-        <DateSelector date={formData.date} onChange={handleDateChange} />
+        <DateSelector
+          date={formData.date}
+          startTime={formData.startTime}
+          onDateChange={handleDateChange}
+          onStartTimeChange={(newStartTime) =>
+            setFormData({
+              ...formData,
+              startTime: newStartTime,
+            })
+          }
+        />
         <DurationSelector duration={formData.duration} onChange={handleDurationChange} />
 
         <div className="mb-4">
