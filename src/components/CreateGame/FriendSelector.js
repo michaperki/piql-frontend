@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-function FriendSelector({ onFriendsSelected }) {
+function FriendSelector({ selectedFriends, onFriendsSelected }) {
   const [friends, setFriends] = useState([]);
-  const [selectedFriends, setSelectedFriends] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -24,23 +23,13 @@ function FriendSelector({ onFriendsSelected }) {
     const selectedFriendId = parseInt(event.target.value);
     const isChecked = event.target.checked;
 
-    setSelectedFriends((prevSelectedFriends) => {
-      if (isChecked) {
-        // Add the selected friend to the list of selected friends
-        const updatedSelectedFriends = [...prevSelectedFriends, selectedFriendId];
-        // Call the callback to notify the parent component of selected friends
-        onFriendsSelected(updatedSelectedFriends);
-        return updatedSelectedFriends;
-      } else {
-        // Remove the unselected friend from the list of selected friends
-        const updatedSelectedFriends = prevSelectedFriends.filter(
-          (friendId) => friendId !== selectedFriendId
-        );
-        // Call the callback to notify the parent component of selected friends
-        onFriendsSelected(updatedSelectedFriends);
-        return updatedSelectedFriends;
-      }
-    });
+    if (isChecked) {
+      // Add the selected friend to the list of selected friends
+      onFriendsSelected([...selectedFriends, selectedFriendId]);
+    } else {
+      // Remove the unselected friend from the list of selected friends
+      onFriendsSelected(selectedFriends.filter((friendId) => friendId !== selectedFriendId));
+    }
   };
 
   return (
