@@ -5,6 +5,7 @@ function CreateGame() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedCourt, setSelectedCourt] = useState(null);
+  const accessToken = localStorage.getItem('access_token');
 
   const [formData, setFormData] = useState({
     date: '',
@@ -43,11 +44,7 @@ function CreateGame() {
 
     try {
       setLoading(true);
-
-      const accessToken = 'YOUR_ACCESS_TOKEN'; // Replace with your actual access token
-      const apiUrl = 'https://piql-aec8f86e81c3.herokuapp.com/api/games';
-
-      const response = await fetch(apiUrl, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/games`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
