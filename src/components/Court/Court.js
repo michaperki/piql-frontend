@@ -1,17 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-function Court() {
-  const [courtData, setCourtData] = useState(null);
-  const accessToken = localStorage.getItem('access_token');
-  
-  useEffect(() => {
-    // Make a GET request to your API endpoint to retrieve court data
-    fetch(`${process.env.REACT_APP_API_URL}/api/courts/1`) // Use template literals
-      .then((response) => response.json())
-      .then((data) => setCourtData(data))
-      .catch((error) => console.error('Error fetching court data:', error));
-  }, []);
-
+function Court({ courtData }) {  
   if (!courtData) {
     return <div>Loading...</div>;
   }

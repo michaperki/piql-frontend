@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import Court from '../Court';
 
 function CourtSelector({ onCourtSelected }) {
   const [courts, setCourts] = useState([]);
+  const [selectedCourtId, setSelectedCourtId] = useState(null);
   const [selectedCourt, setSelectedCourt] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Fetch the list of courts from your backend API
@@ -13,21 +16,39 @@ function CourtSelector({ onCourtSelected }) {
       },
     })
       .then((response) => response.json())
-      .then((data) => setCourts(data))
+      .then((data) => {
+        setCourts(data);
+      })
       .catch((error) => console.error('Error fetching court data:', error));
   }, []);
 
   const handleCourtSelection = (event) => {
     const selectedCourtId = parseInt(event.target.value);
-    const court = courts.find((c) => c.id === selectedCourtId);
-    setSelectedCourt(court);
-    onCourtSelected(court); // Pass the selected court to the parent component
+    setSelectedCourtId(selectedCourtId);
+    setLoading(true);
+
+    // Fetch the specific court data based on the selectedCourtId
+    fetch(`${process.env.REACT_APP_API_URL}/api/courts/${selectedCourtId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setSelectedCourt(data);
+        setLoading(false);
+        onCourtSelected(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching court data:', error);
+        setLoading(false);
+      });
   };
 
   return (
     <div>
       <label htmlFor="courtSelect">Select a Court:</label>
-      <select id="courtSelect" onChange={handleCourtSelection} value={selectedCourt ? selectedCourt.id : ''}>
+      <select
+        id="courtSelect"
+        onChange={handleCourtSelection}
+        value={selectedCourtId || ''}
+      >
         <option value="">Select a court</option>
         {courts.map((court) => (
           <option key={court.id} value={court.id}>
@@ -35,6 +56,16 @@ function CourtSelector({ onCourtSelected }) {
           </option>
         ))}
       </select>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        selectedCourt && (
+          <div>
+            <h2>Selected Court</h2>
+            <Court courtData={selectedCourt} />
+          </div>
+        )
+      )}
     </div>
   );
 }

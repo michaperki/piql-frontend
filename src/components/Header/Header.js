@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <header className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-white text-xl font-bold">piql</Link>
+        <Link to="/" className="text-white text-xl font-bold">Piql</Link>
         <button
           className="lg:hidden text-white text-xl"
           onClick={toggleMobileMenu}
