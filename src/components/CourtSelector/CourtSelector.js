@@ -42,12 +42,15 @@ function CourtSelector({ onCourtSelected }) {
   };
 
   return (
-    <div>
-      <label htmlFor="courtSelect">Select a Court:</label>
+    <div className="p-4">
+      <label htmlFor="courtSelect" className="block text-lg font-semibold mb-2">
+        Select a Court:
+      </label>
       <select
         id="courtSelect"
         onChange={handleCourtSelection}
         value={selectedCourtId || ''}
+        className="w-full p-2 border rounded-md"
       >
         <option value="">Select a court</option>
         {courts.map((court) => (
@@ -57,11 +60,11 @@ function CourtSelector({ onCourtSelected }) {
         ))}
       </select>
       {loading ? (
-        <div>Loading...</div>
+        <div className="mt-4">Loading...</div>
       ) : (
         selectedCourt && (
-          <div>
-            <h2>Selected Court</h2>
+          <div className="mt-4">
+            <h2 className="text-xl font-semibold">Selected Court</h2>
             <Court courtData={selectedCourt} />
           </div>
         )

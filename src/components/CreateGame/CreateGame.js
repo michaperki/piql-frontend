@@ -68,47 +68,67 @@ function CreateGame() {
     }
   };
 
-
   return (
-    <div>
+    <div className="p-4">
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Date:</label>
+        <div className="mb-4">
+          <label htmlFor="date" className="block text-lg font-semibold mb-2">
+            Date:
+          </label>
           <input
             type="date"
+            id="date"
             name="date"
             value={formData.date}
             onChange={handleInputChange}
             required
+            className="w-full p-2 border rounded-md"
           />
         </div>
-        <div>
-          <label>Start Time:</label>
+        <div className="mb-4">
+          <label htmlFor="startTime" className="block text-lg font-semibold mb-2">
+            Start Time:
+          </label>
           <input
             type="time"
+            id="startTime"
             name="startTime"
             value={formData.startTime}
             onChange={handleInputChange}
             required
+            className="w-full p-2 border rounded-md"
           />
         </div>
-        <div>
-          <label>End Time:</label>
+        <div className="mb-4">
+          <label htmlFor="endTime" className="block text-lg font-semibold mb-2">
+            End Time:
+          </label>
           <input
             type="time"
+            id="endTime"
             name="endTime"
             value={formData.endTime}
             onChange={handleInputChange}
             required
+            className="w-full p-2 border rounded-md"
           />
         </div>
-        <CourtSelector onCourtSelected={handleCourtSelected} />
+        <div className="mb-4">
+          <label htmlFor="courtSelect" className="block text-lg font-semibold mb-2">
+            Select a Court:
+          </label>
+          <CourtSelector onCourtSelected={handleCourtSelected} />
+        </div>
 
-        <button type="submit" disabled={loading}>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md transition-opacity hover:opacity-80"
+        >
           {loading ? 'Creating Game...' : 'Create Game'}
         </button>
       </form>
-      {error && <p>Error: {error}</p>}
+      {error && <p className="text-red-500 mt-4">Error: {error}</p>}
     </div>
   );
 }

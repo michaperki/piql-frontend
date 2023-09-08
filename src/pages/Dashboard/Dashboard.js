@@ -3,7 +3,6 @@ import CreateGame from "../../components/CreateGame";
 const Dashboard = () => {
     return (
         <div>
-            Dashboard
             <CreateGame />
         </div>
     );
