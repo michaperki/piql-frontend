@@ -8,6 +8,7 @@ import Header from './components/Header';
 import Games from './pages/Games';
 import Calendar from './pages/Calendar'
 import Settings from './pages/Settings'
+import Social from './pages/Social';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/games" element={<Games />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/social" element={<Social />} />
       </Routes>
     </>
   );
