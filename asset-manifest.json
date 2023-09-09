@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/piql-frontend/static/css/main.206b73ac.css",
-    "main.js": "/piql-frontend/static/js/main.800e4263.js",
+    "main.css": "/piql-frontend/static/css/main.a1b1157e.css",
+    "main.js": "/piql-frontend/static/js/main.220a00a7.js",
     "static/js/787.d0035655.chunk.js": "/piql-frontend/static/js/787.d0035655.chunk.js",
     "index.html": "/piql-frontend/index.html",
-    "main.206b73ac.css.map": "/piql-frontend/static/css/main.206b73ac.css.map",
-    "main.800e4263.js.map": "/piql-frontend/static/js/main.800e4263.js.map",
+    "main.a1b1157e.css.map": "/piql-frontend/static/css/main.a1b1157e.css.map",
+    "main.220a00a7.js.map": "/piql-frontend/static/js/main.220a00a7.js.map",
     "787.d0035655.chunk.js.map": "/piql-frontend/static/js/787.d0035655.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.206b73ac.css",
-    "static/js/main.800e4263.js"
+    "static/css/main.a1b1157e.css",
+    "static/js/main.220a00a7.js"
   ]
 }
