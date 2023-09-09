@@ -50,6 +50,7 @@ function GameInviteList() {
         <ul>
           {gameInvites.map((gameInvite) => (
             <li key={gameInvite.id}>
+              {console.log("game invite: ", gameInvite)}
               <GameInvite gameInvite={gameInvite} />
             </li>
           ))}
