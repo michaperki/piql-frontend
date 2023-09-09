@@ -70,6 +70,9 @@ function GameList() {
 
   return (
     <div>
+      <button onClick={() => setShowGameList(!showGameList)}>
+        {showGameList ? "Show Game Invites" : "Show Game List"}
+      </button>
       <h2>{showGameList ? "Game List" : "Game Invites"}</h2>
       {showGameList ? (
         games.length === 0 ? (
@@ -86,10 +89,6 @@ function GameList() {
       ) : (
         <GameInviteList /> // Render the GameInviteList component
       )}
-      {/* Add a button or user interaction to toggle between GameList and GameInviteList */}
-      <button onClick={() => setShowGameList(!showGameList)}>
-        {showGameList ? "Show Game Invites" : "Show Game List"}
-      </button>
     </div>
   );
 }

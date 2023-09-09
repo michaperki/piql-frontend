@@ -51,8 +51,11 @@ const Header = () => {
           </button>
         )}
         {isAuthenticated && (
-          <nav className="hidden lg:block"> {/* Display navigation on larger screens */}
+          <nav className="hidden lg:flex items-center"> {/* Display navigation and Logout on larger screens */}
             <Navigation />
+            <div className="ml-2"> {/* Add margin here */}
+              <Logout />
+            </div>
           </nav>
         )}
       </div>
@@ -64,8 +67,10 @@ const Header = () => {
         >
           <nav>
             <Navigation onClose={closeMobileMenu} />
+            <div className="mt-2"> {/* Add margin-top here */}
+              <Logout />
+            </div>
           </nav>
-          <Logout />
         </div>
       )}
     </header>
