@@ -10,7 +10,6 @@ import Calendar from './pages/Calendar'
 import Settings from './pages/Settings'
 import Social from './pages/Social';
 
-
 function App() {
   const navigate = useNavigate();
 
