@@ -1,0 +1,16 @@
+/* CSS for the mobile navigation menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -300px; /* Start the menu off-screen to the right */
+  width: 250px;
+  height: 100%;
+  background-color: #333;
+  transition: right 0.3s ease; /* Add a smooth transition for the right property */
+  z-index: 999;
+  padding: 20px;
+}
+
+.mobile-menu.open {
+  right: 0; /* Slide the menu in from the right */
+}
