@@ -9,6 +9,7 @@ import Games from './pages/Games';
 import Calendar from './pages/Calendar'
 import Settings from './pages/Settings'
 import Social from './pages/Social';
+import Onboarding from './components/OnboardingForm/OnboardingForm';
 
 function App() {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ function App() {
         <Route path="/games" element={<Games />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/social" element={<Social />} />
+        <Route path="/onboarding" element={<Onboarding />} />
       </Routes>
     </>
   );

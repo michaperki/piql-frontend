@@ -69,11 +69,16 @@ function GameList() {
   }
 
   return (
-    <div>
-      <button onClick={() => setShowGameList(!showGameList)}>
+    <div className="p-4">
+      <button
+        onClick={() => setShowGameList(!showGameList)}
+        className="mb-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md transition duration-300 ease-in-out"
+      >
         {showGameList ? "Show Game Invites" : "Show Game List"}
       </button>
-      <h2>{showGameList ? "Game List" : "Game Invites"}</h2>
+      <h2 className="text-xl mb-2">
+        {showGameList ? "Game List" : "Game Invites"}
+      </h2>
       {showGameList ? (
         games.length === 0 ? (
           <p>No games available</p>

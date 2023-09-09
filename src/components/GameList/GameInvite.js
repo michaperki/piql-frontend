@@ -55,8 +55,7 @@ function GameInvite({ gameInvite }) {
         console.error("Error rejecting the game invite:", error);
         // Display an error message or take appropriate action
       });
-  };
-  
+  };  
 
   return (
     <div className="game-invite">
